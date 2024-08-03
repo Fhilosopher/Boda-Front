@@ -1,0 +1,40 @@
+.my-custom-alert {
+  border-radius: 10px;
+  background-color: #f0eadf;
+  height: 250px;
+  color: #4f4a36;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.my-custom-alert .swal2-image {
+  margin-bottom: 0px;
+  width: 100px; /* 이미지 너비 조정 */
+  height: auto; /* 비율에 맞춰 높이 조정 */
+}
+
+.my-confirm-button {
+  width: 70px;
+  height: 40px;
+  background-color: #4f4a36;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.my-cancel-button {
+  width: 70px;
+  height: 40px;
+  background-color: #4f4a3696;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: 10px;
+}

@@ -1,0 +1,18 @@
+.textarea {
+  outline: none;
+  flex: 1;
+  background-color: #edede4;
+  align-self: center;
+  max-height: 92px;
+  border: none;
+  font-size: 16px;
+  padding-right: 5px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.textarea::placeholder {
+  font-family: "Pretendard-Regular";
+  color: #adacac; /* Placeholder 텍스트 색상 */
+  font-size: 15px; /* Placeholder 텍스트 크기 */ /* Placeholder 텍스트 스타일 */
+}

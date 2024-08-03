@@ -1,0 +1,75 @@
+.PostPart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  height: 100%;
+  background-color: #f9f9f1;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-bottom: 0px;
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+.ContentName {
+  cursor: default;
+  margin-bottom: 41px;
+  color: #3a3a3b;
+  text-align: center;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 7.2px;
+}
+
+.InputHead {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 30px;
+}
+
+.Date {
+  flex: 1;
+  color: rgba(58, 58, 59, 0.5);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.InputPart {
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes dot-flashing {
+  0% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.Loading {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Loading span {
+  margin: 0 2px;
+  animation: dot-flashing 1s infinite both;
+}
+
+.Loading span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.Loading span:nth-child(3) {
+  animation-delay: 0.4s;
+}
