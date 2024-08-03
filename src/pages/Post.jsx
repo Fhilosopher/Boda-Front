@@ -52,11 +52,11 @@ function Post() {
   };
 
   useEffect(() => {
-    const AlertHour = 19; // 오전 4시
-    const AlertMinute = 32; // 45분
+    const AlertHour = 4; // 오전 4시
+    const AlertMinute = 45; // 45분
 
-    const MoveHour = 19; // 오전 5시
-    const MoveMinute = 34; // 0분
+    const MoveHour = 5; // 오전 5시
+    const MoveMinute = 0; // 0분
 
     const checkTime = () => {
       const currentTime = new Date();

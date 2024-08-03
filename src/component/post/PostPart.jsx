@@ -8,10 +8,11 @@ import { instance } from "../../api/instance.js";
 
 function PostPart({ apiData, handleAlert }) {
   const [loading, setLoading] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
+    const month = date.getMonth() + 1;
     const day = date.getDate();
 
     return `${year}년 ${month}월 ${day}일 호`;
@@ -47,9 +48,12 @@ function PostPart({ apiData, handleAlert }) {
       },
     };*/
     const res = await instance.post(`diary/qna/`, body, { headers });
-    console.log("Response:", res.data);
+    console.log("Response:", res);
     onQuestionCreate(res.data.data.question);
     setLoading(false);
+    if (res.data.status === "finish") {
+      setIsFinished(true);
+    }
     //fetchCommentList();
   };
   return (
@@ -78,7 +82,10 @@ function PostPart({ apiData, handleAlert }) {
             ) : (
               <div></div>
             )}
-            <TypingPart handleClickSendButton={handleClickSendButton} />
+            <TypingPart
+              handleClickSendButton={handleClickSendButton}
+              isFinished={isFinished}
+            />
           </div>
         </div>
       </Part>

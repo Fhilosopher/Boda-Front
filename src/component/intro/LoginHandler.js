@@ -39,16 +39,6 @@ const LoginHandler = () => {
     };
     try {
       const res = await instance.post("accounts/kakaoLogin/", {}, { headers });
-      console.log(res);
-      // const res = {
-      //   status: "success",
-      //   access_token:
-      //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMzY0MzgxLCJpYXQiOjE3MjIyNzc5ODEsImp0aSI6ImExMjdiOWIxMzEzZDRmYTBiNWM3OWIwOTVhOTJhMWIyIiwidXNlcl9pZCI6NH0._z-_YwARtZh-e9_Gv-L1r4foibZJ03midE8XdErnFHs",
-      //   redirect_url: "/diary/month/list_months/?user_id=4",
-      //   name: "윤예은",
-      //   email: "yunye001204@naver.com",
-      //   user_pk: 4,
-      // };
       if (res.status === 200) {
         localStorage.setItem("accessToken", res.data.access_token);
         localStorage.setItem("user_pk", res.data.user_pk);

@@ -13,13 +13,14 @@ function Title({ handleAlert }) {
   const [bookGroups, setBookGroups] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [isMatchedDate, setIsMatchedDate] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [bookData, setBookData] = useState([]); // 데이터 상태 추가
   const navigate = useNavigate();
 
   const bookImages = [Book1, Book2, Book3, Book4, Book5, Book6];
   const totalBooks = bookGroups.reduce(
     (total, group) => total + group.length,
-    ""
+    0
   );
 
   const getBookList = async () => {
@@ -37,6 +38,7 @@ function Title({ handleAlert }) {
         const groupedBooks = groupBooksByDate(res.data.data);
         setBookGroups(groupedBooks);
         calculateDate(res.data.data);
+        setLoading(true);
       }
     } catch (err) {
       console.error("Error:", err);
@@ -224,16 +226,7 @@ function Title({ handleAlert }) {
     }
   };
 
-  //   const handleBookClick = (groupIndex, bookIndex) => {
-  //     const globalIndex = groupIndex * 3 + bookIndex;
-  //     const selectedBook = bookData[globalIndex];
-  //     if (selectedBook) {
-  //       const bookId = selectedBook.id;
-  //       navigate(`/months/${bookId}`);
-  //     }
-  //   };
-
-  if (bookData.length === 0) {
+  if (!loading) {
     return (
       <Notice>
         <Caption>

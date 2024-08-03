@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { instance } from "../../api/instance";
 
 function SaveContent({ apiData, contents, questions }) {
   const contentRef = useRef();

@@ -9,6 +9,7 @@ function MonthsPage({ handleAlert }) {
   const [bookGroups, setBookGroups] = useState([]);
   const [showMessage, setShowMessage] = useState(false); // 메시지 표시 상태
   const [isMatchedDate, setIsMatchedDate] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getMonthName = (monthNumber) => {
     const monthNames = [
@@ -82,6 +83,7 @@ function MonthsPage({ handleAlert }) {
         const groupedBooks = groupBooksByDate(res.data.data);
         setBookGroups(groupedBooks);
         calculateDate(res.data.data);
+        setLoading(true);
       }
     } catch (err) {
       alert(err);
@@ -199,10 +201,10 @@ function MonthsPage({ handleAlert }) {
   // 전체 책 수 계산
   const totalBooks = bookGroups.reduce(
     (total, group) => total + group.books.length,
-    ""
+    0
   );
 
-  if (bookGroups.length === 0) {
+  if (!loading) {
     return (
       <Notice>
         <Caption>
