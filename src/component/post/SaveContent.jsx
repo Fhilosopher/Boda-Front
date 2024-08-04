@@ -9,6 +9,7 @@ function SaveContent({ apiData, contents, questions }) {
       contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
   }, [contents, questions]);
+
   return (
     <>
       <MyContent ref={contentRef}>

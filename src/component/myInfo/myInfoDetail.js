@@ -9,9 +9,16 @@ import badge4 from "../../assets/img/badge4.svg";
 function MyInfoDetail() {
   const [userData, setUserData] = useState(null);
   const [isPushEnabled, setIsPushEnabled] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const [pushTime, setPushTime] = useState("00:00");
 
-  const badges = [badge1, badge2, badge3, badge4];
+  const badgeMap = {
+    1: badge1,
+    7: badge2,
+    14: badge3,
+    30: badge4,
+  };
 
   useEffect(() => {
     const fetchMyInfo = async () => {
@@ -25,26 +32,6 @@ function MyInfoDetail() {
           )}`,
           { headers }
         );
-        // const res = {
-        //   data: {
-        //     name: "윤예은",
-        //     is_alert: true,
-        //     alert_hour: 12,
-        //     alert_min: 3,
-        //     if_firstday: false,
-        //     DailyChallenges: {
-        //       user_id: 1,
-        //       current_day: 3,
-        //       goal_day: 7,
-        //       today_complete: true,
-        //       start_day: 0,
-        //     },
-        //     Badges: [
-        //       { id: 1, title: "첫 게시물 달성", type: "first", user_id: 1 },
-        //       { id: 2, title: "7일 연속달성", type: "D", user_id: 1 },
-        //     ],
-        //   },
-        // };
         if (res.status === 200) {
           setUserData(res.data);
           setIsPushEnabled(res.data.is_alert);
@@ -65,7 +52,6 @@ function MyInfoDetail() {
   const handlePushOnOff = async () => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // Authorization: `Bearer ${token}`,
     };
     try {
       const res = await instance.put(
@@ -78,10 +64,12 @@ function MyInfoDetail() {
 
       if (res.status === 200) {
         if (res.data.is_alert === true) {
-          alert("웹 푸시가 설정되었습니다.");
+          setAlertMessage("웹 푸시가 설정되었습니다");
         } else if (res.data.is_alert === false) {
-          alert("웹 푸시가 해제되었습니다.");
+          setAlertMessage("웹 푸시가 해제되었습니다");
         }
+        setShowMessage(true);
+        setTimeout(() => setShowMessage(false), 1500);
         setIsPushEnabled(res.data.is_alert);
       }
     } catch (err) {
@@ -93,7 +81,7 @@ function MyInfoDetail() {
     const newTime = event.target.value;
     setPushTime(newTime);
 
-    const [newHour, newMin] = newTime.split(":").map(Number); // 시간과 분을 숫자로 변환
+    const [newHour, newMin] = newTime.split(":").map(Number);
 
     const body = {
       alert_hour: newHour,
@@ -190,15 +178,20 @@ function MyInfoDetail() {
             <BadgeContainer>
               {userData.Badges.map((badge) => (
                 <Badge
-                  src={badges[badge.id - 1]}
+                  src={badgeMap[badge.title]}
                   key={badge.id}
-                  title={badge.title}
+                  title={
+                    badge.title == "1"
+                      ? "첫 인터뷰 작성 뱃지"
+                      : `${badge.title}` + "일 연속 인터뷰 달성 뱃지"
+                  }
                 ></Badge>
               ))}
             </BadgeContainer>
           </Badges>
         </Scrollabar>
       </Content>
+      {showMessage && <AlertMessage>{alertMessage}</AlertMessage>}
     </Container>
   );
 }
@@ -207,7 +200,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1; /* MyInfoDetail이 남은 공간을 채우도록 설정 */
+  flex: 1;
   overflow: hidden;
 `;
 
@@ -239,14 +232,14 @@ const Scrollabar = styled.div`
   gap: 10px;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden; /* 기본적으로 스크롤바 숨김 */
+  overflow-y: hidden;
   overflow-x: hidden;
   position: relative;
-  /* Hover 상태에서 스크롤바 보이기 */
+
   &:hover {
     overflow-y: auto;
   }
-  /* 스크롤바 숨기기 (웹킷 브라우저) */
+
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
@@ -423,6 +416,18 @@ const Badge = styled.img`
   height: 100px;
   margin: 3px;
   border-radius: 50%;
+`;
+
+const AlertMessage = styled.div`
+  position: fixed;
+  bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 18px;
 `;
 
 const Notice = styled.div`

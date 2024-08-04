@@ -347,6 +347,12 @@ const BookImage = styled.img`
   margin: 0 10px;
   z-index: 1;
   cursor: pointer;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const BooksContainer = styled.div`
@@ -413,6 +419,11 @@ const NavButton = styled.button`
   margin: 0 10px;
   background-color: #4f4a36;
   z-index: 1000;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(5px);
+  }
 `;
 
 const AlertMessage = styled.div`

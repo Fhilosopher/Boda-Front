@@ -27,8 +27,11 @@ function Post() {
       );
 
       if (res.status === 200) {
-        navigate(`/months/${res.data.data.diary.month_id}`);
-        console.log("저장됐오");
+        if (res.data.status === "success") {
+          navigate(`/months/${res.data.data.diary.month_id}`);
+        } else if (res.data.status === "redirect") {
+          navigate(`/months/${res.data.data[0].id}`);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -83,12 +86,10 @@ function Post() {
       }
     };
 
-    // 매 1초마다 시간을 확인합니다.
     const intervalId = setInterval(checkTime, 1000);
 
-    // 컴포넌트 언마운트 시 interval을 정리합니다.
     return () => clearInterval(intervalId);
-  }, [alertShown, moveShown]); // alertShown 상태가 변경될 때마다 이펙트를 재실행
+  }, [alertShown, moveShown]);
 
   return (
     <PostPage>

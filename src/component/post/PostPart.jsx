@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PostPart.css";
 import Button from "./Button.jsx";
 import SaveContent from "./SaveContent.jsx";
@@ -56,6 +56,7 @@ function PostPart({ apiData, handleAlert }) {
     }
     //fetchCommentList();
   };
+
   return (
     <>
       <div className="ContentName">Interviewing...</div>

@@ -70,7 +70,7 @@ const IntroHeader = () => {
   };
 
   const handleLogoClick = () => {
-    const link = "http://localhost:3000/";
+    const link = "https://bodapractice.vercel.app/";
     window.location.href = link;
   };
   return (

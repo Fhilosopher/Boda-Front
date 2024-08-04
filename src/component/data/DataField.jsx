@@ -41,18 +41,28 @@ const QAndA = styled.div`
 const MyField = styled.div`
   height: 50%;
   margin: 10px 10px 30px 33px;
-  padding-right: 37px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  overflow-y: hidden; /* 기본적으로 스크롤바 숨김 */
-  overflow-x: hidden;
   position: relative;
   flex: 1;
-  /* Hover 상태에서 스크롤바 보이기 */
+  overflow: auto;
+  padding-right: 25px; /* 스크롤바 공간 고려한 패딩 */
+
+  /* hover 상태에서 스크롤바가 있을 때 padding-right 조정 */
   &:hover {
-    overflow-y: auto;
-    padding-right: 25px;
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 12px; /* 스크롤바 넓이 */
+      background: #f9f9f1; /* 배경색과 동일하게 맞춤 */
+    }
   }
 `;
 

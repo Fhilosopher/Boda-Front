@@ -8,8 +8,9 @@ const KakaoLogout = () => {
   const logoutHandler = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user_pk");
+    localStorage.removeItem("latest_month_id");
     navigate("/");
-    alert("로그아웃이 되었습니다.");
+    alert("로그아웃 되었습니다.");
   };
 
   useEffect(() => {

@@ -19,6 +19,12 @@ const Before = styled.button`
   height: 50px;
   width: 50px;
   font-size: 24px;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateX(-5px);
+  }
 `;
 
 export default BeforeButton;

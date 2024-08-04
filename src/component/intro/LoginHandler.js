@@ -44,7 +44,7 @@ const LoginHandler = () => {
         localStorage.setItem("user_pk", res.data.user_pk);
         //navigate(res.data.redirect_url);
         navigate("/home");
-        alert(`${res.data.name}` + "님 로그인 되었습니다.");
+        alert("반갑습니다. " + `${res.data.name}` + "님 로그인 되었습니다.");
       } else {
         alert("post 성공, status 이상");
       }
@@ -144,11 +144,9 @@ const LoginHandler = () => {
       //   message: "Subscription saved.",
       // };
       if (res.status === 200) {
-        alert("구독정보 전송 완료");
-        console.log("보낸 거", body);
-        console.log("받은 거", res);
+        console.log("구독정보 전송 완료");
       } else {
-        alert("구독정보 전송 실패");
+        console.log("구독정보 전송 실패");
       }
     } catch (err) {
       alert(err);
@@ -183,13 +181,15 @@ const LoginHandler = () => {
   useEffect(() => {
     if (code) {
       getToken(code).then((res) => {
-        console.log("카카오 리스폰스: " + res);
-        // 카카오에서 인가코드로 토큰 받아오기
-        console.log("카카오 토큰: " + res.access_token);
+        // console.log("카카오 리스폰스: " + res);
+        // // 카카오에서 인가코드로 토큰 받아오기
+        // console.log("카카오 토큰: " + res.access_token);
 
         // 유저 정보 받아오기
-        getUserInfo(res.access_token);
-        handlePushNotification();
+        getUserInfo(res.access_token).then(() => {
+          // 구독 정보 전송하기
+          handlePushNotification();
+        });
       });
     }
   }, [code]);

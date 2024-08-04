@@ -232,7 +232,11 @@ function MonthsPage({ handleAlert }) {
                   <BookWithDate key={index}>
                     <Rectangle
                       onClick={() => {
-                        navigate(`/data/${item.id}`);
+                        if (item.is_complete) {
+                          navigate(`/data/${item.id}`);
+                        } else if (!item.is_complete) {
+                          navigate(`/post/${item.id}`);
+                        }
                       }}
                     >
                       <DateContainer>
@@ -347,7 +351,14 @@ const Rectangle = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 10px 0; /* 상단에 위치시키기 위해 패딩 추가 */
+  padding: 10px 0;
+  cursor: pointer;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const DateContainer = styled.div`
@@ -440,6 +451,11 @@ const NavButton = styled.button`
   margin: 0 10px;
   background-color: #4f4a36;
   z-index: 1000;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(5px);
+  }
 `;
 
 const AlertMessage = styled.div`
