@@ -9,6 +9,7 @@ import { instance } from "../api/instance";
 import TimeAlert from "../component/common/TimeAlert";
 
 function Post() {
+  const { post_id } = useParams();
   const location = useLocation();
   const { apiData } = location.state || {};
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Post() {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       };
       const res = await instance.patch(
-        `diary/diary/${apiData.id}/finish_diary/`,
+        `diary/diary/${post_id}/finish_diary/`,
         {},
         { headers }
       );
@@ -98,7 +99,7 @@ function Post() {
         handleMyInfo={handleAlert}
         handleLog={handleAlert}
       />
-      <PostPart apiData={apiData} handleAlert={handleAlert} />
+      <PostPart post_id={post_id} apiData={apiData} handleAlert={handleAlert} />
     </PostPage>
   );
 }

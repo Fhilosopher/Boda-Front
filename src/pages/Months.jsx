@@ -22,7 +22,7 @@ function Months() {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
     const res = await instance.post(`/diary/diary/`, body, { headers });
-    console.log("Response", res.data.data);
+
     navigate(`/post/${res.data.data.id}`, {
       state: { apiData: res.data.data },
     });

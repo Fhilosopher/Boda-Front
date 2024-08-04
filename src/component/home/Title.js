@@ -14,7 +14,7 @@ function Title({ handleAlert }) {
   const [showMessage, setShowMessage] = useState(false);
   const [isMatchedDate, setIsMatchedDate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [bookData, setBookData] = useState([]); // 데이터 상태 추가
+  const [bookData, setBookData] = useState([]);
   const navigate = useNavigate();
 
   const bookImages = [Book1, Book2, Book3, Book4, Book5, Book6];
@@ -34,7 +34,7 @@ function Title({ handleAlert }) {
       );
 
       if (res.status === 200) {
-        setBookData(res.data.data); // 데이터 상태 설정
+        setBookData(res.data.data);
         const groupedBooks = groupBooksByDate(res.data.data);
         setBookGroups(groupedBooks);
         calculateDate(res.data.data);
@@ -43,14 +43,12 @@ function Title({ handleAlert }) {
     } catch (err) {
       console.error("Error:", err);
       if (err.response) {
-        // 서버 응답이 있으면 상태 코드를 확인
         if (err.response.status === 401) {
           alert("Unauthorized: 인증 토큰이 없거나 만료되었습니다.");
         } else {
           alert(`Error: ${err.response.status}`);
         }
       } else {
-        // 서버 응답이 없으면 네트워크 에러
         alert("Network Error");
       }
     }
@@ -73,14 +71,12 @@ function Title({ handleAlert }) {
     } catch (err) {
       console.error("Error:", err);
       if (err.response) {
-        // 서버 응답이 있으면 상태 코드를 확인
         if (err.response.status === 401) {
           alert("Unauthorized: 인증 토큰이 없거나 만료되었습니다.");
         } else {
           alert(`Error: ${err.response.status}`);
         }
       } else {
-        // 서버 응답이 없으면 네트워크 에러
         alert("Network Error");
       }
     }
@@ -156,41 +152,6 @@ function Title({ handleAlert }) {
       getInterviewList(matchedData.id);
     }
   }, [bookData]);
-
-  //   // clickedOnce 상태를 localStorage를 기반으로 초기화
-  //   const resetClickedOnceIfNeeded = () => {
-  //     const now = new Date();
-  //     const resetHour = 5;
-  //     const resetDate = new Date(
-  //       now.getFullYear(),
-  //       now.getMonth(),
-  //       now.getDate(),
-  //       resetHour,
-  //       0,
-  //       0,
-  //       0
-  //     );
-
-  //     if (now.getHours() < resetHour) {
-  //       resetDate.setDate(resetDate.getDate() - 1);
-  //     }
-
-  //     const lastResetTime = localStorage.getItem("lastResetTime");
-  //     if (!lastResetTime || new Date(lastResetTime) < resetDate) {
-  //       setClickedOnce(false);
-  //       localStorage.setItem("lastResetTime", now.toISOString());
-  //     } else {
-  //       setClickedOnce(JSON.parse(localStorage.getItem("clickedOnce")) || false);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     resetClickedOnceIfNeeded();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     localStorage.setItem("clickedOnce", JSON.stringify(clickedOnce));
-  //   }, [clickedOnce]);
 
   const handleClick = async () => {
     const currentDateTime = new Date();

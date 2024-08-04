@@ -5,8 +5,11 @@ import SaveContent from "./SaveContent.jsx";
 import TypingPart from "./TypingPart";
 import styled from "styled-components";
 import { instance } from "../../api/instance.js";
+import { useLocation } from "react-router-dom";
 
-function PostPart({ apiData, handleAlert }) {
+function PostPart({ post_id, apiData, handleAlert }) {
+  const location = useLocation();
+  const { falseData } = location.state || {};
   const [loading, setLoading] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const formatDate = (dateString) => {
@@ -17,8 +20,37 @@ function PostPart({ apiData, handleAlert }) {
 
     return `${year}년 ${month}월 ${day}일 호`;
   };
+  const [repost, setRepost] = useState(null);
+  const [firstq, setFirstq] = useState([]);
+  const [date, setDate] = useState([]);
   const [contents, setContent] = useState([]);
   const [questions, setQuestion] = useState([]);
+  useEffect(() => {
+    if (falseData != undefined) {
+      const post_index = falseData.findIndex((item) => item.id == post_id);
+
+      const fetchPostData = async () => {
+        try {
+          const headers = {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          };
+          const res = await instance.get(
+            `diary/diary/list_diaries/?month_id=${falseData[post_index].month_id}`,
+            {
+              headers,
+            }
+          );
+          setFirstq(res.data.data[post_index].firstq);
+          setRepost(res.data.data[post_index].messages);
+          setDate(res.data.data[post_index].created_date);
+        } catch (err) {
+          alert(err);
+        }
+      };
+      fetchPostData();
+    }
+  }, []);
+
   const onContentCreate = (content) => {
     const newContent = { content };
     setContent([...contents, newContent]);
@@ -34,21 +66,12 @@ function PostPart({ apiData, handleAlert }) {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
     const body = {
-      diary_id: apiData.id,
+      diary_id: post_id,
       answer: input,
     };
-    /*const res = {
-      status: "success",
-      data: {
-        id: 1,
-        answer: input,
-        question:
-          "I see we're still going in circles! Let's try something different. How about you share a topic or question you'd like me to respond to? That way, we can break this pattern and have a more engaging conversation.",
-        diary_id: 2,
-      },
-    };*/
+
     const res = await instance.post(`diary/qna/`, body, { headers });
-    console.log("Response:", res);
+
     onQuestionCreate(res.data.data.question);
     setLoading(false);
     if (res.data.status === "finish") {
@@ -56,6 +79,46 @@ function PostPart({ apiData, handleAlert }) {
     }
     //fetchCommentList();
   };
+
+  if (falseData != undefined) {
+    return (
+      <>
+        <div className="ContentName">Interviewing...</div>
+        <Part>
+          <div className="PostPart">
+            <div className="InputHead">
+              <div className="Date">
+                {formatDate(date)}
+                <Button handleAlert={handleAlert} />
+              </div>
+            </div>
+            <SaveContent
+              firstq={firstq}
+              repost={repost}
+              apiData={apiData}
+              contents={contents}
+              questions={questions}
+            />
+            <div className="InputPart">
+              {loading ? (
+                <div className="Loading">
+                  <span>.</span>
+                  <span>.</span>
+                  <span>.</span>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              <TypingPart
+                handleClickSendButton={handleClickSendButton}
+                isFinished={isFinished}
+              />
+            </div>
+          </div>
+        </Part>
+      </>
+    );
+  }
 
   return (
     <>

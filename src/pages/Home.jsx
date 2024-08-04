@@ -21,7 +21,7 @@ function Home() {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
     const res = await instance.post(`/diary/diary/`, body, { headers });
-    console.log("Response", res.data.data);
+
     navigate(`/post/${res.data.data.id}`, {
       state: { apiData: res.data.data },
     });
@@ -35,7 +35,6 @@ function Home() {
       "시작",
       () => {
         handleConfirm();
-        console.log("시작");
       }
     );
   };
@@ -59,16 +58,14 @@ function Home() {
         !alertShown
       ) {
         handleTimeAlert();
-        setAlertShown(true); // 경고창이 표시된 후 상태 업데이트
+        setAlertShown(true);
       }
     };
 
-    // 매 1초마다 시간을 확인합니다.
     const intervalId = setInterval(checkTime, 1000);
 
-    // 컴포넌트 언마운트 시 interval을 정리합니다.
     return () => clearInterval(intervalId);
-  }, [alertShown]); // alertShown 상태가 변경될 때마다 이펙트를 재실행
+  }, [alertShown]);
 
   return (
     <>

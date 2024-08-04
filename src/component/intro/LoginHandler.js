@@ -79,7 +79,7 @@ const LoginHandler = () => {
               setSubscribe(updatedSubscribe);
               sendPushNotification(updatedSubscribe);
 
-              console.log("기존 푸시 구독 정보:");
+              console.log("기존 푸시 구독 정보가 존재합니다");
               console.log("Endpoint:", endpoint);
               console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
               console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");
@@ -104,7 +104,7 @@ const LoginHandler = () => {
               setSubscribe(updatedSubscribe);
               sendPushNotification(updatedSubscribe);
 
-              console.log("새로운 푸시 구독 정보:");
+              console.log("새로운 푸시 구독 정보를 등록하였습니다.");
               console.log("Endpoint:", endpoint);
               console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
               console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");

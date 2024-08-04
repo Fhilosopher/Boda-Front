@@ -101,12 +101,12 @@ function MyInfoDetail() {
         { headers }
       );
       if (res.status === 200) {
-        console.log("Time updated successfully.");
+        console.log("푸시 알림 시간 재설정 완료");
       } else {
-        console.error("Failed to update time:");
+        console.error("푸시 알림 시간 재설정 실패");
       }
     } catch (err) {
-      console.error("Failed to update time:", err);
+      console.error("푸시 알림 시간 재설정 에러", err);
     }
   };
 

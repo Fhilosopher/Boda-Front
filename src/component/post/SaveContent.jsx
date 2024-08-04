@@ -1,19 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-function SaveContent({ apiData, contents, questions }) {
+function SaveContent({ firstq, repost, apiData, contents, questions }) {
   const contentRef = useRef();
   useEffect(() => {
     // 스크롤을 항상 가장 아래로 이동
     if (contentRef.current) {
       contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
-  }, [contents, questions]);
-
+  }, [contents, questions, repost]);
+  const renderMessages = (messages) =>
+    messages?.map((message, index) => (
+      <div key={index}>
+        {message.role === "assistant" && <Q>질문: {message?.content}</Q>}
+        {message.role === "user" && <A>나: {message?.content}</A>}
+      </div>
+    ));
   return (
     <>
       <MyContent ref={contentRef}>
-        <FirstQ>질문: {apiData.firstq}</FirstQ>
+        <FirstQ>
+          {apiData?.firstq === null ? (
+            <div>질문: {apiData?.firstq}</div>
+          ) : (
+            <div>질문: {apiData?.firstq}</div>
+          )}
+        </FirstQ>
+        <div>{renderMessages(repost)}</div>
         {contents?.map((content, index) => (
           <QAndA key={index}>
             <A>나: {content.content}</A>

@@ -41,14 +41,17 @@ function Data() {
 
   const handlePrevious = () => {
     if (post?.previous_diary) {
-      fetchPostData(post.previous_diary.id);
+      if (post.previous_diary.is_complete) {
+        fetchPostData(post.previous_diary.id);
+      }
     }
   };
 
   const handleNext = () => {
     if (post?.next_diary) {
-      fetchPostData(post.next_diary.id);
-      console.log(`${post.next_diary.id}`);
+      if (post.next_diary.is_complete) {
+        fetchPostData(post.next_diary.id);
+      }
     }
   };
 
@@ -91,12 +94,10 @@ function Data() {
       }
     };
 
-    // 매 1초마다 시간을 확인합니다.
     const intervalId = setInterval(checkTime, 1000);
 
-    // 컴포넌트 언마운트 시 interval을 정리합니다.
     return () => clearInterval(intervalId);
-  }, [alertShown, moveShown, navigate]); // navigate를 의존성 배열에 추가
+  }, [alertShown, moveShown, navigate]);
 
   if (!post) {
     return (
@@ -128,7 +129,10 @@ function Data() {
         <div className="ContentName">Interview</div>
         <DataHome>
           <BeforeButton
-            hide={post.previous_diary === null}
+            hide={
+              post.previous_diary === null ||
+              post.previous_diary.is_complete === false
+            }
             handlePrevious={handlePrevious}
           />
           <DataPart>
@@ -138,7 +142,9 @@ function Data() {
             <DataField messages={post.diary.messages} />
           </DataPart>
           <AfterButton
-            hide={post.next_diary === null}
+            hide={
+              post.next_diary === null || post.next_diary.is_complete === false
+            }
             handleNext={handleNext}
           />
         </DataHome>

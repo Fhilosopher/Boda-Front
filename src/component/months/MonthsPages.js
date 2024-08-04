@@ -4,10 +4,11 @@ import styled, { keyframes } from "styled-components";
 import { instance } from "../../api/instance";
 
 function MonthsPage({ handleAlert }) {
+  const [data, setData] = useState("");
   const navigate = useNavigate();
   const { month_id } = useParams();
   const [bookGroups, setBookGroups] = useState([]);
-  const [showMessage, setShowMessage] = useState(false); // 메시지 표시 상태
+  const [showMessage, setShowMessage] = useState(false);
   const [isMatchedDate, setIsMatchedDate] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -26,10 +27,9 @@ function MonthsPage({ handleAlert }) {
       "November",
       "December",
     ];
-    return monthNames[monthNumber - 1]; // monthNumber는 1부터 시작하므로 -1
+    return monthNames[monthNumber - 1];
   };
 
-  // 더미 데이터를 가져오는 함수
   const getBookList = async () => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -41,49 +41,13 @@ function MonthsPage({ handleAlert }) {
           headers,
         }
       );
-      // const res = await instance.get("")
-      // const res = {
-      //   status: "success",
-      //   data: [
-      //     {
-      //       id: 2,
-      //       firstq: "오늘의 기분은?",
-      //       limitq_num: 6,
-      //       created_date: "2024-07-26",
-      //       created_time: "14:09:42.456900",
-      //       is_complete: true,
-      //       user_id: 1,
-      //       month_id: 1,
-      //     },
-      //     {
-      //       id: 3,
-      //       firstq: "오늘의 기분은?",
-      //       limitq_num: 6,
-      //       created_date: "2024-07-27",
-      //       created_time: "14:09:43.574033",
-      //       is_complete: true,
-      //       user_id: 1,
-      //       month_id: 1,
-      //     },
-      //     {
-      //       id: 4,
-      //       firstq: "오늘의 기분은?",
-      //       limitq_num: 6,
-      //       created_date: "2024-08-01",
-      //       created_time: "15:09:43.574033",
-      //       is_complete: false,
-      //       user_id: 1,
-      //       month_id: 1,
-      //     },
-      //     // 필요에 따라 데이터 추가
-      //   ],
-      // };
 
       if (res.status === 200) {
         const groupedBooks = groupBooksByDate(res.data.data);
         setBookGroups(groupedBooks);
         calculateDate(res.data.data);
         setLoading(true);
+        setData(res.data.data);
       }
     } catch (err) {
       alert(err);
@@ -114,7 +78,6 @@ function MonthsPage({ handleAlert }) {
     }
   };
 
-  // 데이터를 날짜별로 그룹화하는 함수
   const groupBooksByDate = (data) => {
     const result = [];
     let tempGroup = [];
@@ -124,68 +87,25 @@ function MonthsPage({ handleAlert }) {
 
       if (tempGroup.length === 3) {
         result.push({
-          date: tempGroup[0].created_date, // Using the date from the first item in the group
+          date: tempGroup[0].created_date,
           books: [...tempGroup],
         });
         tempGroup = [];
       }
     });
 
-    // If there are remaining books that didn't make a full group
     if (tempGroup.length > 0) {
       result.push({
         date: tempGroup[0].created_date,
         books: [...tempGroup],
       });
     }
-
     return result;
   };
 
-  // 컴포넌트가 처음 렌더링될 때 데이터 가져오기
   useEffect(() => {
     getBookList();
   }, [month_id]);
-
-  // bookGroups를 로컬 스토리지에 저장
-  // useEffect(() => {
-  //   localStorage.setItem("bookGroups", JSON.stringify(bookGroups));
-  //   console.log(bookGroups);
-  // }, [bookGroups]);
-
-  //   // 클릭 여부 초기화 함수
-  //   const resetClickedOnceIfNeeded = () => {
-  //     const now = new Date();
-  //     const resetHour = 5; // 오전 5시
-  //     const resetDate = new Date(
-  //       now.getFullYear(),
-  //       now.getMonth(),
-  //       now.getDate(),
-  //       resetHour,
-  //       0,
-  //       0,
-  //       0
-  //     );
-
-  //     if (now.getHours() < resetHour) {
-  //       resetDate.setDate(resetDate.getDate() - 1);
-  //     }
-
-  //     const lastResetTime = localStorage.getItem("lastResetTime");
-  //     if (!lastResetTime || new Date(lastResetTime) < resetDate) {
-  //       setClickedOnce(false);
-  //       localStorage.setItem("lastResetTime", now.toISOString());
-  //     } else {
-  //       setClickedOnce(JSON.parse(localStorage.getItem("clickedOnce")) || false);
-  //     }
-  //   };
-
-  //   const isBookCreatedToday = () => {
-  //     const today = new Date().toISOString().split("T")[0];
-  //     return bookGroups.some((group) =>
-  //       group.books.some((book) => book.created_date === today)
-  //     );
-  //   };
 
   const handleClick = async () => {
     getBookList();
@@ -235,23 +155,21 @@ function MonthsPage({ handleAlert }) {
                         if (item.is_complete) {
                           navigate(`/data/${item.id}`);
                         } else if (!item.is_complete) {
-                          navigate(`/post/${item.id}`);
+                          navigate(`/post/${item.id}`, {
+                            state: { falseData: data },
+                          });
                         }
                       }}
                     >
                       <DateContainer>
-                        <Day>{item.created_date.slice(8, 10)}</Day>{" "}
-                        {/* 날짜의 일 부분만 표시 */}
-                        <Divider />
+                        <Day>{item.created_date.slice(8, 10)}</Day> <Divider />
                         <MonthYear>
                           <Month>
                             {getMonthName(
                               parseInt(item.created_date.slice(5, 7))
                             )}
                           </Month>{" "}
-                          {/* 월 부분 표시 */}
                           <Year>{item.created_date.slice(0, 4)}</Year>{" "}
-                          {/* 년도 부분 표시 */}
                         </MonthYear>
                       </DateContainer>
                     </Rectangle>
