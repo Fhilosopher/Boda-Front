@@ -81,7 +81,7 @@ function MyInfoDetail() {
     const newTime = event.target.value;
     setPushTime(newTime);
 
-    const [newHour, newMin] = newTime.split(":").map(Number);
+    const [newHour, newMin] = newTime.split(":");
 
     const body = {
       alert_hour: newHour,
