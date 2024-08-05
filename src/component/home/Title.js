@@ -17,7 +17,7 @@ function Title({ handleAlert }) {
   const [bookData, setBookData] = useState([]);
   const navigate = useNavigate();
 
-  const bookImages = [Book1, Book2, Book3, Book4, Book5, Book6];
+  const bookImages = [Book2, Book1, Book3, Book4, Book5, Book6];
   const totalBooks = bookGroups.reduce(
     (total, group) => total + group.length,
     0

@@ -31,9 +31,6 @@ const badges = [
   badge3,
   badge4,
   badge1,
-  badge2,
-  badge3,
-  badge4,
 ];
 
 const FifthSection = () => {
@@ -97,7 +94,7 @@ const BadgeWrapper = styled.div`
 const BadgeContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 200%;
+  width: 2880px;
   animation: ${scrollAnimation} 10s linear infinite;
 `;
 

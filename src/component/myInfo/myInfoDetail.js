@@ -12,6 +12,7 @@ function MyInfoDetail() {
   const [showMessage, setShowMessage] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [pushTime, setPushTime] = useState("00:00");
+  const [itemNum, setItemNum] = useState(0);
 
   const badgeMap = {
     1: badge1,
@@ -155,7 +156,13 @@ function MyInfoDetail() {
             </SettingsItem>
           </Settings>
           <Challenges>
-            <SectionTitle>My Challenge</SectionTitle>
+            <SectionTitle>My Challenge</SectionTitle>{" "}
+            <ChallengeItem>
+              <p>{`보유 아이템 개수: ${itemNum}`}</p>
+              <icon title="아이템 1개 사용 시 초기화된 챌린지 일 수를 1회 복구합니다">
+                ?
+              </icon>
+            </ChallengeItem>
             <ChallengeContent>
               <ChallengeStatus>{`${userData.DailyChallenges.current_day}일째 도전 중!`}</ChallengeStatus>
               매일매일 인터뷰에 참여해서 챌린지에 도전해보세요!
@@ -428,6 +435,25 @@ const AlertMessage = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   font-size: 18px;
+`;
+
+const ChallengeItem = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  align-items: center;
+  p {
+    color: #3a3a3b;
+    font-size: 12px;
+  }
+  icon {
+    margin-left: 8px;
+    padding: 2px 5px;
+    background-color: #3a3a3b;
+    border-radius: 100%;
+    color: white;
+    font-size: 12px;
+  }
 `;
 
 const Notice = styled.div`

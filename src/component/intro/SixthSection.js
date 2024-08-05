@@ -70,7 +70,7 @@ const SixthSection = () => {
       <Caption3>
         내가 인터뷰 한 내용들을 실제 책으로 만들어 나만의 하나 뿐인 책을 만들 수
         있어요 <br />
-        *단, 뱃지 0개 이상 회원 해당
+        *단, 뱃지 5개 이상 보유 회원 대상
       </Caption3>
     </SixthSectionWrapper>
   );
