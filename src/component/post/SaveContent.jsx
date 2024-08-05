@@ -20,11 +20,7 @@ function SaveContent({ firstq, repost, apiData, contents, questions }) {
     <>
       <MyContent ref={contentRef}>
         <FirstQ>
-          {apiData?.firstq === null ? (
-            <div>질문: {apiData?.firstq}</div>
-          ) : (
-            <div>질문: {apiData?.firstq}</div>
-          )}
+          {apiData?.firstq == null ? "" : <div>질문: {apiData?.firstq}</div>}
         </FirstQ>
         <div>{renderMessages(repost)}</div>
         {contents?.map((content, index) => (
