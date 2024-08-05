@@ -19,7 +19,7 @@ self.addEventListener("push", function (event) {
 
   const options = {
     body: data.body,
-    icon: data.icon || "https://i.imgur.com/gvLouLg.png",
+    icon: data.icon || "https://i.imgur.com/1So3yjn.png",
     badge: data.badge || "https://i.imgur.com/NCVXfsQ.png",
     image: data.image,
     data: {
