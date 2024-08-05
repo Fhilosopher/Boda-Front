@@ -19,11 +19,11 @@ self.addEventListener("push", function (event) {
 
   const options = {
     body: data.body,
-    icon: data.icon || "default-icon-url",
+    icon: data.icon || "https://i.imgur.com/2ADUpym.png",
     badge: data.badge || "default-badge-url",
     image: data.image,
     data: {
-      url: data.url, // 알림 클릭 시 이동할 URL을 포함합니다.
+      url: data.url,
     },
   };
 
@@ -33,6 +33,8 @@ self.addEventListener("push", function (event) {
 self.addEventListener("notificationclick", function (event) {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.notification.data.url || "https://default-url.com") // 알림 클릭 시 이동할 기본 URL
+    clients.openWindow(
+      event.notification.data.url || "https://bodaessay.vercel.app/"
+    )
   );
 });

@@ -13,7 +13,7 @@ const SeventhSection = () => {
         </p>
         <p>Premium 서비스</p>
       </Caption1>
-      <Caption2>월 2,500원에 제한 없는 서비스를 경험해보세요</Caption2>
+      <Caption2>월 2,500원에 다양한 서비스를 경험해보세요</Caption2>
       <ServiceContainer>
         <Service>
           <ImgBox src={service1} alt="서비스1"></ImgBox>
