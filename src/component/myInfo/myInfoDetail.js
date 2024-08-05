@@ -216,7 +216,7 @@ function MyInfoDetail() {
     const newTime = event.target.value;
     setPushTime(newTime);
 
-    const [newHour, newMin] = newTime.split(":").map(Number);
+    const [newHour, newMin] = newTime.split(":");
 
     const body = {
       alert_hour: newHour,
@@ -236,9 +236,10 @@ function MyInfoDetail() {
         { headers }
       );
       if (res.status === 200) {
-        console.log(body);
-        console.log(typeof body.alert_hour);
         console.log("푸시 알림 시간 재설정 완료");
+        console.log(body);
+        console.log("hour 자료형", typeof body.alert_hour);
+        console.log("min 자료형", typeof body.alert_min);
       } else {
         console.error("푸시 알림 시간 재설정 실패");
       }
