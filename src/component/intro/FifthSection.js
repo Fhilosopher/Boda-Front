@@ -37,7 +37,7 @@ const FifthSection = () => {
   return (
     <FifthSectionWrapper>
       <Caption1>모으는 재미가 있는 챌린지</Caption1>
-      <Caption2>연속 인터뷰 작성 챌린지를 통해 뱃지를 수집해보세요!</Caption2>
+      <Caption2>연속 에세이 작성 챌린지를 통해 뱃지를 수집해보세요!</Caption2>
       <BadgeWrapper>
         <BadgeContainer>
           {badges.map((badge, index) => (
