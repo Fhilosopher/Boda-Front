@@ -61,11 +61,13 @@ function Post() {
 
     const MoveHour = 5; // 오전 5시
     const MoveMinute = 0; // 0분
+    const MoveSecond = 0; // 0초
 
     const checkTime = () => {
       const currentTime = new Date();
       const currentHour = currentTime.getHours();
       const currentMinute = currentTime.getMinutes();
+      const currentSecond = currentTime.getSeconds();
 
       if (
         currentHour === AlertHour &&
@@ -79,14 +81,15 @@ function Post() {
       if (
         currentHour === MoveHour &&
         currentMinute === MoveMinute &&
+        currentSecond === MoveSecond &&
         !moveShown
       ) {
-        handleConfirm();
         navigate("/home");
         setMoveShown(true); // 홈으로 이동
       }
     };
 
+    // 매 1초마다 시간을 확인합니다.
     const intervalId = setInterval(checkTime, 1000);
 
     return () => clearInterval(intervalId);

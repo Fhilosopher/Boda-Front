@@ -50,11 +50,13 @@ function Months() {
 
     const MoveHour = 5; // 오전 5시
     const MoveMinute = 0; // 0분
+    const MoveSecond = 0; // 0초
 
     const checkTime = () => {
       const currentTime = new Date();
       const currentHour = currentTime.getHours();
       const currentMinute = currentTime.getMinutes();
+      const currentSecond = currentTime.getSeconds();
 
       if (
         currentHour === AlertHour &&
@@ -68,6 +70,7 @@ function Months() {
       if (
         currentHour === MoveHour &&
         currentMinute === MoveMinute &&
+        currentSecond === MoveSecond &&
         !moveShown
       ) {
         navigate("/home");

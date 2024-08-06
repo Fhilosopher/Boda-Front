@@ -83,9 +83,9 @@ function MyInfoDetail() {
               sendPushNotification(updatedSubscribe);
 
               console.log("기존 푸시 구독 정보가 존재합니다");
-              console.log("Endpoint:", endpoint);
-              console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
-              console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");
+              // console.log("Endpoint:", endpoint);
+              // console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
+              // console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");
             } else {
               // 구독이 없는 경우 새로 구독 생성
               const newSubscription = await registration.pushManager.subscribe({
@@ -108,9 +108,9 @@ function MyInfoDetail() {
               sendPushNotification(updatedSubscribe);
 
               console.log("새로운 푸시 구독 정보를 등록하였습니다.");
-              console.log("Endpoint:", endpoint);
-              console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
-              console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");
+              // console.log("Endpoint:", endpoint);
+              // console.log("p256dh:", key ? arrayBufferToBase64(key) : "없음");
+              // console.log("Auth:", auth ? arrayBufferToBase64(auth) : "없음");
             }
           } else {
             alert("서비스 워커가 등록되지 않았습니다.");
