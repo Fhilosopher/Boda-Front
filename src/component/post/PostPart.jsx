@@ -43,6 +43,9 @@ function PostPart({ post_id, apiData, handleAlert }) {
           setFirstq(res.data.data[post_index].firstq);
           setRepost(res.data.data[post_index].messages);
           setDate(res.data.data[post_index].created_date);
+          if (res.data.data[post_index].messages.length / 2 == 7) {
+            setIsFinished(true);
+          }
         } catch (err) {
           alert(err);
         }

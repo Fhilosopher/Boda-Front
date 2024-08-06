@@ -18,6 +18,15 @@ const ScrollableContainer = styled.div`
   border-radius: 15px;
   position: relative;
   max-height: 135px; /* 원하는 높이로 조절 */
+
+  img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 `;
 
 function TypingPart({ handleClickSendButton, isFinished }) {
@@ -50,7 +59,7 @@ function TypingPart({ handleClickSendButton, isFinished }) {
                 : "구체적인 답변일수록 좋은 인터뷰가 이루어질 수 있습니다"
             }
           />
-          <img src={SendButton} alt="Logo" onClick={onSubmit} />
+          <img src={SendButton} alt="전송" onClick={onSubmit} />
         </ScrollableContainer>
       </AnswerInputContainer>
     </div>
